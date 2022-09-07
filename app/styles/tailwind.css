@@ -1,0 +1,57 @@
+@tailwind base;
+
+@layer base {
+  body {
+    @apply bg-slate-800  text-white  text-lg;
+  }
+  main {
+    @apply m-6 md:m-12;
+  }
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  a {
+    @apply text-cyan-400 hover:text-cyan-300;
+  }
+  p {
+    @apply mb-10 text-lg;
+  }
+  li {
+    @apply text-lg;
+  }
+  input,
+  textarea {
+    @apply border text-base  md:text-lg  text-white rounded-none;
+  }
+  button {
+    @apply rounded text-lg;
+  }
+  label {
+    @apply text-lg;
+  }
+  option {
+    @apply font-normal text-slate-800;
+  }
+}
+
+@tailwind components;
+
+@tailwind utilities;
+
+/*bg-gradient-to-l from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500*/
+
+#nav {
+  width: 400px;
+  max-width: 100%;
+}
+
+#nav[data-state="closed"] {
+  left: -100%;
+}
+
+#nav[data-state="closed"] ul {
+  opacity: 0;
+}

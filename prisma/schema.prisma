@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model accounts {
+  id          String   @id @default(uuid())
+  email       String
+  password    String
+  joined      DateTime @default(now())
+  firstName   String 
+  middleName   String 
+  lastName    String
+  fullName    String
+  image       String
+  accountLists lists[] @relation("accountLists")
+}
+
+model lists {
+  id          String   @id @default(uuid())
+  created     DateTime @default(now())
+  name        String 
+  order       Int
+  accounts    accounts @relation("accountLists", fields: [accountID], references: [id])
+  accountID   String
+  subLists    sublists[]  @relation("subLists")
+}
+
+model sublists {
+  id          String   @id @default(uuid())
+  created     DateTime @default(now())
+  name        String
+  order       Int
+  lists       lists @relation("subLists", fields: [listId], references: [id])
+  listId      String
+  items       items[]  @relation("items")
+}
+
+model items {
+  id          String   @id @default(uuid())
+  created     DateTime @default(now())
+  text        String 
+  url1        String
+  url2        String
+  url3        String
+  status      String
+  completed   String
+  order       Int
+  due         String
+  subLists    sublists @relation("items", fields: [sublistId], references: [id])
+  sublistId   String
+}
