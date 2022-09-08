@@ -55,3 +55,7 @@
 #nav[data-state="closed"] ul {
   opacity: 0;
 }
+
+details[open] > summary {
+  color: rgb(165, 243, 252);
+}

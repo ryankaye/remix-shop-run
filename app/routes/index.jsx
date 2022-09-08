@@ -25,7 +25,7 @@ export default function Index() {
 
   return (
     <>
-      <main className="ml-24"></main>
+      <main></main>
     </>
   );
 }

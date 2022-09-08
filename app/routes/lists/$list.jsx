@@ -1,5 +1,5 @@
 import { useLoaderData, useTransition, useActionData, useSubmit } from "@remix-run/react";
-import { Form } from "@remix-run/react";
+import { Form, Link } from "@remix-run/react";
 import { json } from "@remix-run/node";
 import { getAllUserData, updateItem, addItem, addSubList, updateSubList } from "~/utils/db.server";
 import { Nav } from "~/components/nav";
@@ -65,8 +65,17 @@ export default function Index() {
       <main>
         {loadList?.map((list) => {
           return (
-            <div key={list?.id} className="">
-              <h2 className="mb-6">{list?.name}</h2>
+            <div key={list?.id}>
+              <div className="flex gap-5 items-center">
+                <h2 className="mb-6">{list?.name}</h2>
+                <Link to={list.id ? "/lists/shop/" + list.id : ""} className="flex items-center mb-5">
+                  Shop view
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </Link>
+              </div>
+
               <AddSubListForm listId={list?.id} transition={transition} />
 
               {list?.subLists?.map((sublist) => {
@@ -101,7 +110,7 @@ function EditItemForm({ index, item, sublist }) {
   const handleChange = (event) => submit(event.currentTarget);
 
   return (
-    <Form method="post" className="flex flex-wrap md:flex-nowrap gap-y-0 md:gap-2 mb-2 py-2 " onChange={handleChange}>
+    <Form method="post" className="flex flex-wrap md:flex-nowrap gap-y-0 md:gap-2 mb-2 py-2 relative" onChange={handleChange}>
       <input type="hidden" name="transaction" defaultValue="updateItem" />
       <input type="hidden" name="order" defaultValue={index} />
       <input type="hidden" name="url2" defaultValue="" />
@@ -114,9 +123,7 @@ function EditItemForm({ index, item, sublist }) {
       <input type="text" name="text" defaultValue={item.text ? item.text : ""} placeholder="Item" className="bg-slate-700 text-white px-3 pt-3 pb-1 md:p-2 w-full  md:w-1/2 border-0 border-l border-cyan-500 " />
       <input type="text" name="url1" defaultValue={item.url1 ? item.url1 : ""} placeholder="Brand" className="bg-slate-700 text-slate-400  px-3 pb-3 md:p-2 grow border-0 border-l border-cyan-500 " />
 
-      <div className="flex items-center w-2/12 md:w-1/12 justify-center gap-2 bg-slate-700 relative">
-        <input type="checkbox" name="completed" defaultChecked={item.completed === "on" ? "checked" : ""} className="h-5 w-5 absolute bottom-6 md:bottom-3" />
-      </div>
+      <input type="checkbox" name="completed" defaultChecked={item.completed === "on" ? "checked" : ""} className="h-5 w-5 absolute bottom-1/3 right-3" />
     </Form>
   );
 }
@@ -171,10 +178,10 @@ function AddSubListForm({ listId, transition }) {
   }, [transitioning]);
 
   return (
-    <details className="my-2  py-4">
-      <summary className="text-lg cursor-pointer text-cyan-300">Add new sublist</summary>
+    <details className="my-2 p-3 bg-cyan-800">
+      <summary className="text-lg cursor-pointer text-cyan-200">New sublist</summary>
 
-      <Form method="post" ref={form} className="flex flex-col md:flex-row gap-4 items-center my-2 py-2 ">
+      <Form method="post" ref={form} className="flex flex-col md:flex-row gap-3 items-center mt-2 py-2 ">
         <input type="hidden" name="listId" defaultValue={listId} />
         <input type="hidden" name="order" defaultValue="0" />
         <input type="hidden" name="transaction" defaultValue="addSublist" />

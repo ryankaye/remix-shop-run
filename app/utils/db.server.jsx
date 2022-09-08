@@ -45,7 +45,6 @@ export const updateList = async (data, userId) => {
     data: obj2,
   });
 
-  console.log(result);
   return result;
 };
 
@@ -62,7 +61,6 @@ export const addList = async (data, userId) => {
     data: obj2,
   });
 
-  console.log(result);
   return result;
 };
 
@@ -116,7 +114,6 @@ export const updateItem = async (data) => {
     data: o,
   });
 
-  console.log(result);
   return result;
 };
 
@@ -134,7 +131,6 @@ export const addItem = async (data) => {
     data: o,
   });
 
-  console.log(result);
   return result;
 };
 
@@ -148,6 +144,8 @@ export const addSubList = async (data) => {
   const result = await prisma.sublists.create({
     data: { ...obj, ...checkedOrder },
   });
+
+  return result;
 };
 
 /*
@@ -164,6 +162,5 @@ export const updateSubList = async (data) => {
     data: { ...obj, ...checkedOrder },
   });
 
-  console.log(result);
   return result;
 };

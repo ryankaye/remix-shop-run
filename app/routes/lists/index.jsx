@@ -45,9 +45,14 @@ export default function Index() {
     <>
       <Nav lists={lists} />
       <main>
-        <h2 className="mb-4">Lists</h2>
+        <h2 className="mb-6">My lists</h2>
+
         {lists?.map((list) => {
-          return <EditListForm list={list} />;
+          return (
+            <div key={list?.id}>
+              <EditListForm list={list} />
+            </div>
+          );
         })}
         <AddListForm transition={transition} />
       </main>
@@ -56,7 +61,7 @@ export default function Index() {
 }
 
 /*
-  Component: EditListForm
+  Component: Edit List Form
 */
 function EditListForm({ list }) {
   const submit = useSubmit();
@@ -69,9 +74,17 @@ function EditListForm({ list }) {
       <input type="text" defaultValue={list.name ? list.name : ""} name="name" placeholder="Enter a title for the sub list" className="bg-slate-700 text-white p-2 w-full border-none" />
 
       <div className="p-2">
+        <Link to={list.id ? "/lists/shop/" + list.id : ""}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+          </svg>
+        </Link>
+      </div>
+
+      <div className="p-2">
         <Link to={list.id ? "/lists/" + list.id : ""}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
           </svg>
         </Link>
       </div>
@@ -80,7 +93,7 @@ function EditListForm({ list }) {
 }
 
 /*
-  Component: AddListForm
+  Component: Add List Form
 */
 function AddListForm({ transition }) {
   const transitioning = transition.state;

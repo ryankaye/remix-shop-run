@@ -35,7 +35,7 @@ const setUserSession = async (request) => {
     session.set("user_id", data.user.id);
     session.set("user_email", data.user.email);
 
-    return redirect("/account", {
+    return redirect("/lists/", {
       headers: {
         "Set-Cookie": await commitSession(session),
       },

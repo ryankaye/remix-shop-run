@@ -1,6 +1,8 @@
 import { useLoaderData, Form } from "@remix-run/react";
-import { redirect } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
 import { getSession, destroyUserSession } from "~/utils/session.server";
+import { getUserLists } from "~/utils/db.server";
+
 import { Nav } from "~/components/nav";
 
 /*  
@@ -11,7 +13,9 @@ export const loader = async ({ request }) => {
 
   if (!session.has("access_token")) return redirect("/login");
 
-  return { user: { id: session.get("user_id"), email: session.get("user_email") } };
+  const { lists } = await getUserLists(session.get("user_id"));
+
+  return json({ user: { id: session.get("user_id"), email: session.get("user_email") }, lists: lists });
 };
 
 /* 
@@ -23,12 +27,13 @@ export const action = async ({ request }) => destroyUserSession(request);
   Main Component 
 */
 export default function Account() {
-  const { user } = useLoaderData();
+  const { user, lists } = useLoaderData();
 
   return (
     <>
+      <Nav lists={lists} />
       <main>
-        <h2>Account</h2>
+        <h2 className="mb-6">My account</h2>
         <p className="mb-7 ">{user?.email}</p>
         <p className="mb-7 text-slate-300">{user?.id}</p>
         <Form method="post">
