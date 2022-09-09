@@ -2,7 +2,7 @@
 
 cd Documents/Remix/remix-lists/remix-lists/
 
-npm run dev or
+npm run dev
 
 PORT=10000 npm run dev
 
@@ -29,6 +29,14 @@ flyctl auth signup
 ```sh
 flyctl launch
 ```
+
+### Fly Setup notes
+
+1. Use Remix flyio set up at initial set up
+
+2. Add secrects before deploy (supabase, session etc) eg fly secrets set SESSION_SECRET="mysecrectblah"
+
+3. fly volumes create data --size 1 --app indie-stack-template
 
 ## Development
 

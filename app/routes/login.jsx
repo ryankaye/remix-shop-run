@@ -18,7 +18,7 @@ export default function Login() {
           <input id="password" name="password" type="password" className="p-2 text-slate-800" />
 
           <div className="my-5 text-center">
-            <button className="w-2/3 border p-2">Login</button>
+            <button className="w-2/3 border-none bg-cyan-500 p-2">Login</button>
           </div>
 
           <p className="text-center">

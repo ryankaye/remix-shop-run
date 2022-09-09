@@ -1,6 +1,6 @@
 import { useLoaderData, useSubmit } from "@remix-run/react";
 import { Form, Link } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { getAllUserData, updateItem } from "~/utils/db.server";
 import { Nav } from "~/components/nav";
 import { getSession } from "~/utils/session.server";
@@ -9,15 +9,10 @@ import { getSession } from "~/utils/session.server";
   Loader (server side) 
 */
 export const loader = async ({ params, request }) => {
-  //const session = await getSession(request.headers.get("Cookie"));
-  //if (!session.has("access_token")) return redirect("/login");
+  const session = await getSession(request.headers.get("Cookie"));
+  if (!session.has("access_token")) return redirect("/login");
 
-  const userId = "dbde91c9-41c6-4f3a-8d9d-cb177f89ef72";
-
-  //const data = await getAllUserData(session.get("user_id"), params.list);
-
-  const data = await getAllUserData(userId, params.list);
-
+  const data = await getAllUserData(session.get("user_id"), params.list);
   return json(data);
 };
 
@@ -41,8 +36,9 @@ export const action = async ({ request }) => {
 */
 export default function Index() {
   const { lists, currentList } = useLoaderData();
-
   const loadList = [lists[currentList]];
+
+  if (currentList === -1) return <ListNotFound lists={lists} />;
 
   // Helpers
   const removeDuplicates = (data) => {
@@ -85,7 +81,7 @@ export default function Index() {
     <>
       <Nav lists={lists} />
       <main>
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-baseline mb-8">
           <h2>{loadList[0]?.name}</h2>
           <Link to={loadList[0].id ? "/lists/" + loadList[0].id : ""} className="flex items-center">
             List view
@@ -97,21 +93,21 @@ export default function Index() {
 
         {shops?.map((shop, index) => {
           return (
-            <div key={index}>
-              <details>
-                <summary className="mb-6 mt-10 text-cyan-500 border-none text-xl ">{shop}</summary>
+            <details key={index} className=" border-cyan-700">
+              <summary className="mb-6 mt-6 text-cyan-500 border-none text-xl cursor-pointer">
+                <span className="inline-block ml-2">{shop}</span>
+              </summary>
 
-                {items?.map((item) => {
-                  return item.url1 === shop ? (
-                    <div key={item?.id}>
-                      <ItemForm item={item} sublists={loadList[0].subLists} />
-                    </div>
-                  ) : (
-                    ""
-                  );
-                })}
-              </details>
-            </div>
+              {items?.map((item) => {
+                return item.url1 === shop ? (
+                  <div key={item?.id}>
+                    <ItemForm item={item} sublists={loadList[0].subLists} />
+                  </div>
+                ) : (
+                  ""
+                );
+              })}
+            </details>
           );
         })}
       </main>
@@ -142,10 +138,24 @@ function ItemForm({ item, sublists }) {
       <input type="hidden" name="sublistId" defaultValue={item?.sublistId} />
       <input type="hidden" name="due" defaultValue={item.due ? item.due : ""} />
 
-      <input type="text" name="text" defaultValue={item.text} className="bg-slate-700 p-3 grow border-0 border-l border-cyan-500" />
-      <div className="w-10/12 md:w-3/12 p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 border-l border-cyan-500">{getSubListName(item?.sublistId)}</div>
+      <input type="text" name="text" defaultValue={item.text} className="bg-slate-700 p-3 grow border-0" />
+      <div className="w-10/12 md:w-3/12 p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 ">{getSubListName(item?.sublistId)}</div>
 
       <input type="checkbox" name="completed" defaultChecked={item.completed === "on" ? "checked" : ""} className="h-5 w-5 absolute right-3 bottom-1/3 " />
     </Form>
+  );
+}
+
+/*
+  Component List Not Found
+*/
+function ListNotFound({ lists }) {
+  return (
+    <>
+      <Nav lists={lists} />
+      <main>
+        <p>List not found</p>
+      </main>
+    </>
   );
 }

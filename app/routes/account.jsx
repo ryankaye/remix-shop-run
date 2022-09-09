@@ -14,7 +14,6 @@ export const loader = async ({ request }) => {
   if (!session.has("access_token")) return redirect("/login");
 
   const { lists } = await getUserLists(session.get("user_id"));
-
   return json({ user: { id: session.get("user_id"), email: session.get("user_email") }, lists: lists });
 };
 
@@ -34,11 +33,17 @@ export default function Account() {
       <Nav lists={lists} />
       <main>
         <h2 className="mb-6">My account</h2>
-        <p className="mb-7 ">{user?.email}</p>
-        <p className="mb-7 text-slate-300">{user?.id}</p>
-        <Form method="post">
-          <button className=" w-1/3 border p-2 ">Logout</button>
-        </Form>
+
+        <div className="my-10 md:w-8/12 flex flex-col gap-6 ">
+          <div className="bg-slate-700 p-4">
+            <h3>Personal</h3>
+            <p>Email: {user?.email}</p>
+            <p>Key: {user?.id}</p>
+          </div>
+          <Form method="post" className="mt-6">
+            <button className=" w-full md:w-1/2 border-none bg-cyan-500 p-2 ">Logout</button>
+          </Form>
+        </div>
       </main>
     </>
   );

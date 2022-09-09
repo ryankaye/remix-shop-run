@@ -21,7 +21,7 @@ export default function App() {
 
 export const meta = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Shop Run App",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -30,7 +30,8 @@ const Fonts = () => {
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     </>
   );
 };

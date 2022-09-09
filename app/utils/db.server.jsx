@@ -14,6 +14,32 @@ export const hasAuthSession = async (request) => {
 };
 
 /*
+  getUserAccount
+*/
+export const getUserAccount = async (userId) => {
+  const account = await prisma.accounts.findMany({
+    where: {
+      id: userId,
+    },
+  });
+
+  console.log(account);
+
+  return account;
+};
+
+export const createUserAccount = async (userId, userEmail) => {
+  const obj = { id: userId, email: userEmail, password: "" };
+  const account = await prisma.accounts.create({
+    data: obj,
+  });
+
+  console.log(account);
+
+  return account;
+};
+
+/*
   getUserLists
 */
 export const getUserLists = async (userId) => {
@@ -53,7 +79,14 @@ export const updateList = async (data, userId) => {
 */
 export const addList = async (data, userId) => {
   const { order, ...obj } = { ...Object.fromEntries(data) };
-  const checkedOrder = isNaN(order) ? { order: 0 } : { order: Number(order) };
+  const checkedOrder = isNaN(order) ? { order: 900 } : { order: Number(order) };
+
+  const manyResult = await prisma.lists.updateMany({
+    where: {
+      accountID: userId,
+    },
+    data: { order: { decrement: 1 } },
+  });
 
   const obj2 = { ...obj, ...checkedOrder, ...{ accountID: userId } };
 
@@ -127,6 +160,15 @@ export const addItem = async (data) => {
   const checkedOrder = isNaN(order) ? { order: 0 } : { order: Number(order) };
   const o = { ...obj, ...c, ...checkedOrder };
 
+  const sublistId = data.get("sublistId");
+
+  const manyResult = await prisma.items.updateMany({
+    where: {
+      sublistId: sublistId,
+    },
+    data: { order: { decrement: 1 } },
+  });
+
   const result = await prisma.items.create({
     data: o,
   });
@@ -140,6 +182,14 @@ export const addItem = async (data) => {
 export const addSubList = async (data) => {
   const { id, transaction, order, ...obj } = { ...Object.fromEntries(data) };
   const checkedOrder = isNaN(order) ? { order: 0 } : { order: Number(order) };
+  const listId = data.get("listId");
+
+  const manyResult = await prisma.sublists.updateMany({
+    where: {
+      listId: id,
+    },
+    data: { order: { increment: 1 } },
+  });
 
   const result = await prisma.sublists.create({
     data: { ...obj, ...checkedOrder },
@@ -154,6 +204,16 @@ export const addSubList = async (data) => {
 export const updateSubList = async (data) => {
   const { id, transaction, order, ...obj } = { ...Object.fromEntries(data) };
   const checkedOrder = isNaN(order) ? { order: 0 } : { order: Number(order) };
+
+  // const manyResult = await prisma.sublists.updateMany({
+  //   where: {
+  //     listId: id,
+  //     order: {
+  //       gt: Number(order),
+  //     },
+  //   },
+  //   data: { order: { increment: 1 } },
+  // });
 
   const result = await prisma.sublists.updateMany({
     where: {

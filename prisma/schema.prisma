@@ -13,20 +13,20 @@ datasource db {
 model accounts {
   id          String   @id @default(uuid())
   email       String
-  password    String
-  joined      DateTime @default(now())
-  firstName   String 
-  middleName   String 
-  lastName    String
-  fullName    String
-  image       String
+  password    String    @default("")
+  joined      DateTime  @default(now())
+  firstName   String    @default("")
+  middleName   String   @default("")
+  lastName    String    @default("")
+  fullName    String    @default("")
+  image       String    @default("")
   accountLists lists[] @relation("accountLists")
 }
 
 model lists {
   id          String   @id @default(uuid())
   created     DateTime @default(now())
-  name        String 
+  name        String   
   order       Int
   accounts    accounts @relation("accountLists", fields: [accountID], references: [id])
   accountID   String
@@ -47,13 +47,14 @@ model items {
   id          String   @id @default(uuid())
   created     DateTime @default(now())
   text        String 
-  url1        String
-  url2        String
-  url3        String
-  status      String
-  completed   String
+  url1        String  @default("")
+  url2        String  @default("")
+  url3        String  @default("")
+  status      String  @default("")
+  completed   String  @default("off")
   order       Int
-  due         String
+  due         String  @default("")
+  price       String  @default("")
   subLists    sublists @relation("items", fields: [sublistId], references: [id])
   sublistId   String
 }

@@ -1,7 +1,7 @@
 import { getSession } from "~/utils/session.server";
 import { redirect, json } from "@remix-run/node";
 import { useLoaderData, Form, useTransition, Link, useSubmit } from "@remix-run/react";
-import { getUserLists, updateList, addList } from "~/utils/db.server";
+import { getUserLists, updateList, addList, getUserAccount, createUserAccount } from "~/utils/db.server";
 import { Nav } from "~/components/nav";
 import { useRef, useEffect } from "react";
 
@@ -9,16 +9,17 @@ import { useRef, useEffect } from "react";
   Loader (server side) 
 */
 export const loader = async ({ request }) => {
-  //const session = await getSession(request.headers.get("Cookie"));
-  //if (!session.has("access_token")) return redirect("/login");
+  const session = await getSession(request.headers.get("Cookie"));
+  if (!session.has("access_token")) return redirect("/login");
 
-  const userId = "dbde91c9-41c6-4f3a-8d9d-cb177f89ef72";
+  const account = await getUserAccount(session.get("user_id"));
 
-  //const { lists } = await getUserLists(session.get("user_id"));
-  const { lists } = await getUserLists(userId);
+  if (!account.length) {
+    const newaccount = await createUserAccount(session.get("user_id"), session.get("user_email"));
+  }
 
-  return json({ user: { id: userId, email: "ryankaye@gmail.com" }, lists: lists });
-  //return { user: { id: session.get("user_id"), email: session.get("user_email") }, lists: lists };
+  const { lists } = await getUserLists(session.get("user_id"));
+  return json({ user: { id: session.get("user_id"), email: session.get("user_email") }, lists: lists });
 };
 
 /* 
@@ -31,7 +32,7 @@ export const action = async ({ request }) => {
   const data = await request.formData();
   const action = data.has("id") ? await updateList(data, session.get("user_id")) : await addList(data, session.get("user_id"));
 
-  return json({ status: "Successfully updated" });
+  return json({ status: "Successfully updated yeah" });
 };
 
 /*
@@ -104,8 +105,8 @@ function AddListForm({ transition }) {
   }, [transitioning]);
 
   return (
-    <Form method="POST" ref={formRef} className="flex flex-col md:flex-row gap-4 items-center mt-4 pt-6 mb-2 py-2 border-t border-cyan-500">
-      <input type="hidden" name="order" value="0" />
+    <Form method="POST" ref={formRef} className="flex flex-col md:flex-row gap-4 items-center mt-4 pt-6 mb-2 py-2 border-t border-slate-600">
+      <input type="hidden" name="order" value="999" />
       <input type="text" name="name" placeholder="Add new list" className="bg-slate-600 text-white p-2 w-full grow border-none" />
       <button className="p-2 flex items-center justify-center w-full md:w-1/12 bg-cyan-600 rounded-none" value="save" type="submit">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

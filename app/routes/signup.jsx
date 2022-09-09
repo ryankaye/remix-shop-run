@@ -6,9 +6,10 @@ export let action = async ({ request }) => signUpUser(request);
 export default function CreateAccount() {
   const actionData = useActionData();
 
+  return <main>Still in BETA</main>;
   return (
     <>
-      <main id="app">
+      <main>
         <Form method="post" className="mx-auto my-10 md:w-1/2 flex flex-col gap-5">
           <h2 className="py-2 border-b border-slate-400">Create an account</h2>
 

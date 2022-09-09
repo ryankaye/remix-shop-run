@@ -13,11 +13,14 @@
   h2 {
     @apply text-2xl;
   }
+  h3 {
+    @apply text-xl mb-5 text-cyan-400;
+  }
   a {
     @apply text-cyan-400 hover:text-cyan-300;
   }
   p {
-    @apply mb-10 text-lg;
+    @apply mb-5 text-lg;
   }
   li {
     @apply text-lg;
@@ -58,4 +61,12 @@
 
 details[open] > summary {
   color: rgb(165, 243, 252);
+}
+
+details {
+  border-bottom: 1px solid;
+}
+
+details[open] {
+  border-bottom: none;
 }
