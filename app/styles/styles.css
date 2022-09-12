@@ -756,10 +756,6 @@ option {
   margin-bottom: 0.5rem;
 }
 
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -816,12 +812,12 @@ option {
   width: 1.25rem;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
 .w-10\/12 {
   width: 83.333333%;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .flex-1 {
@@ -879,10 +875,6 @@ option {
 
 .items-center {
   align-items: center;
-}
-
-.items-baseline {
-  align-items: baseline;
 }
 
 .justify-center {
