@@ -1,9 +1,9 @@
-import { useLoaderData, useTransition, useActionData, useSubmit } from "@remix-run/react";
+import { useLoaderData, useTransition, useSubmit } from "@remix-run/react";
 import { Form, Link } from "@remix-run/react";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { getAllUserData, updateItem, addItem, addSubList, updateSubList } from "~/utils/db.server";
 import { Nav } from "~/components/nav";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { getSession } from "~/utils/session.server";
 
 /*
@@ -64,17 +64,23 @@ export default function Index() {
         {loadList?.map((list) => {
           return (
             <div key={list?.id}>
-              <div className="flex gap-5 mb-8 items-baseline">
-                <h2 className="">{list?.name}</h2>
-                <Link to={list.id ? "/lists/shop/" + list.id : ""} className="flex items-center ">
+              <div className="flex flex-col md:flex-row gap-5 mb-10 md:items-center">
+                <h2>{list?.name}</h2>
+
+                <Link to={list.id ? "/lists/shop/" + list.id : ""} className=" text-white flex gap-3 items-center bg-cyan-900 p-2 px-4 mt-6 md:mt-0  w-full md:w-auto">
                   Shop view
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </Link>
+
+                <Link to={list.id ? "/lists/sublists/" + list.id : ""} className=" text-white flex gap-3 items-center bg-cyan-900 p-2 px-4 md:mt-0 w-full md:w-auto">
+                  Manage sublists
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                   </svg>
                 </Link>
               </div>
-
-              <AddSubListForm listId={list?.id} transition={transition} />
 
               {list?.subLists?.map((sublist) => {
                 return (
@@ -166,7 +172,7 @@ function AddItemForm({ subListId, transition }) {
 
 /*
   Component Add Sub List Form
-*/
+
 function AddSubListForm({ listId, transition }) {
   const transitioning = transition.state;
 
@@ -201,6 +207,7 @@ function AddSubListForm({ listId, transition }) {
     </details>
   );
 }
+*/
 
 /*
   Component Edit SubList Form 

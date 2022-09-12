@@ -81,13 +81,14 @@ export default function Index() {
     <>
       <Nav lists={lists} />
       <main>
-        <div className="flex gap-5 items-baseline mb-8">
+        <div className="flex flex-col md:flex-row gap-5 mb-10 md:items-center">
           <h2>{loadList[0]?.name}</h2>
-          <Link to={loadList[0].id ? "/lists/" + loadList[0].id : ""} className="flex items-center">
-            List view
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+
+          <Link to={loadList[0].id ? "/lists/" + loadList[0].id : ""} className="flex gap-3 items-center bg-cyan-900 p-2 px-4 mt-6 md:mt-0 w-full md:w-auto text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
             </svg>
+            Back to list view
           </Link>
         </div>
 

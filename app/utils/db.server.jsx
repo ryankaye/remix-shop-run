@@ -22,9 +22,6 @@ export const getUserAccount = async (userId) => {
       id: userId,
     },
   });
-
-  console.log(account);
-
   return account;
 };
 
@@ -199,21 +196,52 @@ export const addSubList = async (data) => {
 };
 
 /*
+  update List Sub Lists - Batch updater
+*/
+export const updateListSubLists = async (data) => {
+  const { transaction, listId, noOfItems, ...obj } = { ...Object.fromEntries(data) };
+  const items = new Array(Number(noOfItems)).fill({ index: -1 });
+
+  for (const key in obj) {
+    const newKeys = key.split("|");
+    items[newKeys[1]] = { ...items[newKeys[1]], ...{ [newKeys[0]]: obj[key] }, ...{ index: newKeys[1] }, ...{ listId: listId } };
+  }
+
+  const amendedItem = items.filter((el) => el.order !== el.hiddenorder);
+  const amended = amendedItem.length ? amendedItem[0] : {};
+
+  const items2 = items
+    .map((el) => {
+      if (amendedItem.length) {
+        const direction = Number(amended.hiddenorder) - Number(amended.order);
+        if (el.id !== amended.id && el.order >= amended.order) {
+          direction < 0 ? el.order-- : el.order++;
+        }
+      }
+      return el;
+    })
+    .sort((a, b) => {
+      return a.order - b.order;
+    });
+
+  const results = [];
+  for (let i = 0; i < noOfItems; i++) {
+    let myitem = items2[i];
+    results[i] = await prisma.sublists.update({
+      where: { id: myitem.id },
+      data: { name: myitem.name, order: i },
+    });
+  }
+
+  return results;
+};
+
+/*
   addSubList
 */
 export const updateSubList = async (data) => {
   const { id, transaction, order, ...obj } = { ...Object.fromEntries(data) };
   const checkedOrder = isNaN(order) ? { order: 0 } : { order: Number(order) };
-
-  // const manyResult = await prisma.sublists.updateMany({
-  //   where: {
-  //     listId: id,
-  //     order: {
-  //       gt: Number(order),
-  //     },
-  //   },
-  //   data: { order: { increment: 1 } },
-  // });
 
   const result = await prisma.sublists.updateMany({
     where: {

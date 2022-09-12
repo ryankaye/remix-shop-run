@@ -41,7 +41,7 @@ export default function Account() {
             <p>Key: {user?.id}</p>
           </div>
           <Form method="post" className="mt-6">
-            <button className=" w-full md:w-1/2 border-none bg-cyan-500 p-2 ">Logout</button>
+            <button className=" w-full md:w-1/2 border-none bg-cyan-600 p-2 ">Logout</button>
           </Form>
         </div>
       </main>

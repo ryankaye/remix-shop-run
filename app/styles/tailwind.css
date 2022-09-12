@@ -46,6 +46,18 @@
 
 /*bg-gradient-to-l from-cyan-500 to-blue-500 hover:from-blue-500 hover:to-cyan-500*/
 
+@font-face {
+  font-family: "IBM Plex";
+  src: url("/fonts/IBMPlexSans-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: IBM Plex, sans-serif;
+}
+
 #nav {
   width: 400px;
   max-width: 100%;

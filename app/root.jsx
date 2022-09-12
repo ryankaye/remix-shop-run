@@ -28,12 +28,12 @@ export const meta = () => ({
 const Fonts = () => {
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <link rel="preload" href="/fonts/IBMPlexSans-Regular.ttf" as="font" type="font/ttf" crossOrigin="true" />
     </>
   );
 };
 
-export const links = () => [{ rel: "stylesheet", href: styles }];
+export const links = () => [
+  { rel: "stylesheet", href: styles },
+  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+];
