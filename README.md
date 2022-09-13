@@ -36,7 +36,7 @@ flyctl launch
 
 2. Add secrects before deploy (supabase, session etc) eg fly secrets set SESSION_SECRET="mysecrectblah"
 
-3. fly volumes create data --size 1 --app indie-stack-template
+3. fly volumes create data --size 1 --app my-flyio-app-name
 
 ## Development
 

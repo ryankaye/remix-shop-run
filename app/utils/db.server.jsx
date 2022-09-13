@@ -14,7 +14,7 @@ export const hasAuthSession = async (request) => {
 };
 
 /*
-  getUserAccount
+  Get User Account
 */
 export const getUserAccount = async (userId) => {
   const account = await prisma.accounts.findMany({
@@ -25,19 +25,19 @@ export const getUserAccount = async (userId) => {
   return account;
 };
 
+/*
+  Create User Account
+*/
 export const createUserAccount = async (userId, userEmail) => {
   const obj = { id: userId, email: userEmail, password: "" };
   const account = await prisma.accounts.create({
     data: obj,
   });
-
-  console.log(account);
-
   return account;
 };
 
 /*
-  getUserLists
+  Get User Lists
 */
 export const getUserLists = async (userId) => {
   const lists = await prisma.lists.findMany({
@@ -45,15 +45,14 @@ export const getUserLists = async (userId) => {
       accountID: userId,
     },
     orderBy: {
-      order: "asc",
+      name: "asc",
     },
   });
-
   return { lists: lists };
 };
 
 /*
-  updateItem
+  Update List
 */
 export const updateList = async (data, userId) => {
   const { id, order, ...obj } = { ...Object.fromEntries(data) };
@@ -72,7 +71,7 @@ export const updateList = async (data, userId) => {
 };
 
 /*
-  updateItem
+  Add List
 */
 export const addList = async (data, userId) => {
   const { order, ...obj } = { ...Object.fromEntries(data) };
@@ -95,7 +94,7 @@ export const addList = async (data, userId) => {
 };
 
 /*
-  getAllUserData
+  Get All User Data
 */
 export const getAllUserData = async (userId, currentListId) => {
   const lists = await prisma.lists.findMany({
@@ -103,14 +102,14 @@ export const getAllUserData = async (userId, currentListId) => {
       accountID: userId,
     },
     orderBy: {
-      order: "asc",
+      name: "asc",
     },
     include: {
       subLists: {
         include: {
           items: {
             orderBy: {
-              order: "asc",
+              status: "desc",
             },
           },
         },
@@ -131,11 +130,11 @@ export const getAllUserData = async (userId, currentListId) => {
   updateItem
 */
 export const updateItem = async (data) => {
-  const { id, transaction, order, completed, ...obj } = { ...Object.fromEntries(data) };
+  const { id, transaction, order, ...obj } = { ...Object.fromEntries(data) };
 
-  const c = completed === "on" ? { completed: "on" } : { completed: "off" };
+  //const c = completed === "on" ? { completed: "on" } : { completed: "off" };
   const checkedOrder = isNaN(order) ? { order: 0 } : { order: Number(order) };
-  const o = { ...obj, ...c, ...checkedOrder };
+  const o = { ...obj, ...checkedOrder };
 
   const result = await prisma.items.updateMany({
     where: {
