@@ -112,10 +112,22 @@ function ItemForm({ item, sublists }) {
 
   const handleCompleted = (event) => (status === "Completed" ? setStatus("Default") : setStatus("Completed"));
 
-  const completedClasses = (status === "Completed" ? "text-cyan-400 " : "text-slate-400") + " absolute md:static bottom-7 right-2 px-3 ";
+  const completedClasses = (status === "Completed" ? "text-cyan-400 " : "text-slate-400") + " justify-self-end px-3 ";
 
   return (
-    <Form method="POST" key={item.id} className="flex flex-wrap md:flex-nowrap gap-y-0 md:gap-2 mb-4 bg-slate-700 items-center relative" onChange={handleChange}>
+    <Form method="POST" key={item.id} className="form-priorites grid  mb-4 bg-slate-700 items-center relative" onChange={handleChange}>
+      <input type="text" name="text" defaultValue={item.text} className="w-full  bg-slate-700 p-3 border-0" />
+      <input type="text" name="url1" defaultValue={item.url1} className="w-full pt-0 md:pt-3  bg-slate-700 text-slate-400 p-3 border-0" />
+
+      <div className="p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 ">{getSubListName(item?.sublistId)}</div>
+
+      <button onClick={handleCompleted} className={completedClasses}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </button>
+
+      <input type="hidden" name="completed" defaultValue="" />
       <input type="hidden" name="transaction" defaultValue="updateItem" />
       <input type="hidden" name="order" defaultValue={item.order} />
       <input type="hidden" name="url2" defaultValue="" />
@@ -124,14 +136,6 @@ function ItemForm({ item, sublists }) {
       <input type="hidden" name="id" defaultValue={item.id} />
       <input type="hidden" name="sublistId" defaultValue={item?.sublistId} />
       <input type="hidden" name="due" defaultValue={item.due ? item.due : ""} />
-      <input type="text" name="text" defaultValue={item.text} className="bg-slate-700 p-3 grow border-0" />
-      <div className="w-10/12 md:w-3/12 p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 ">{getSubListName(item?.sublistId)}</div>
-      <button onClick={handleCompleted} className={completedClasses}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      </button>
-      <input type="hidden" name="completed" defaultValue="" />
     </Form>
   );
 }

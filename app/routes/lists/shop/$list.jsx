@@ -143,11 +143,29 @@ function ItemForm({ item, sublists }) {
 
   const handleCompleted = (event) => (status === "Completed" ? setStatus("Default") : setStatus("Completed"));
 
-  const completedClasses = (status === "Completed" ? "text-cyan-400 " : "text-slate-400") + " absolute md:static bottom-7 right-2 px-3 ";
-  const priorityClasses = (status === "Priority" ? "text-cyan-400 " : "text-slate-400") + " absolute md:static bottom-7 right-14  ";
+  const completedClasses = (status === "Completed" ? "text-cyan-400 " : "text-slate-400") + " px-1 md:px-2 ";
+  const priorityClasses = (status === "Priority" ? "text-cyan-400 " : "text-slate-400") + " px-1 md:px-2 ";
 
   return (
-    <Form method="POST" key={item.id} className="flex flex-wrap md:flex-nowrap gap-y-0 md:gap-2 mb-4 bg-slate-700 items-center relative" onChange={handleChange}>
+    <Form method="POST" key={item.id} className="form-shop grid gap-1 mb-4 bg-slate-700 items-center " onChange={handleChange}>
+      <input type="text" name="text" defaultValue={item.text} className="bg-slate-700 p-3 w-full border-0" />
+      <div className=" p-3 pt-0 md:pt-3 text-base text-slate-400 ">{getSubListName(item?.sublistId)}</div>
+
+      <div className="px-3 justify-self-end ">
+        <button onClick={handlePriority} className={priorityClasses}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
+          </svg>
+        </button>
+
+        <button onClick={handleCompleted} className={completedClasses}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </button>
+      </div>
+
+      <input type="hidden" name="completed" defaultValue="" />
       <input type="hidden" name="transaction" defaultValue="updateItem" />
       <input type="hidden" name="order" defaultValue={item.order} />
       <input type="hidden" name="url2" defaultValue="" />
@@ -156,21 +174,6 @@ function ItemForm({ item, sublists }) {
       <input type="hidden" name="id" defaultValue={item.id} />
       <input type="hidden" name="sublistId" defaultValue={item?.sublistId} />
       <input type="hidden" name="due" defaultValue={item.due ? item.due : ""} />
-      <input type="text" name="text" defaultValue={item.text} className="bg-slate-700 p-3 grow border-0" />
-      <div className="w-10/12 md:w-3/12 p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 ">{getSubListName(item?.sublistId)}</div>
-
-      <button onClick={handlePriority} className={priorityClasses}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
-        </svg>
-      </button>
-
-      <button onClick={handleCompleted} className={completedClasses}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      </button>
-      <input type="hidden" name="completed" defaultValue="" />
     </Form>
   );
 }
