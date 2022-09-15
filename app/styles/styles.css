@@ -648,10 +648,6 @@ option {
   position: fixed;
 }
 
-.absolute {
-  position: absolute;
-}
-
 .relative {
   position: relative;
 }
@@ -670,26 +666,6 @@ option {
 
 .left-0 {
   left: 0px;
-}
-
-.bottom-7 {
-  bottom: 1.75rem;
-}
-
-.right-14 {
-  right: 3.5rem;
-}
-
-.right-2 {
-  right: 0.5rem;
-}
-
-.bottom-1\/3 {
-  bottom: 33.333333%;
-}
-
-.right-3 {
-  right: 0.75rem;
 }
 
 .z-10 {
@@ -808,8 +784,8 @@ option {
   width: 66.666667%;
 }
 
-.w-1\/12 {
-  width: 8.333333%;
+.w-6\/12 {
+  width: 50%;
 }
 
 .w-5 {
@@ -822,18 +798,6 @@ option {
 
 .w-4 {
   width: 1rem;
-}
-
-.w-2\/12 {
-  width: 16.666667%;
-}
-
-.w-4\/12 {
-  width: 33.333333%;
-}
-
-.w-6\/12 {
-  width: 50%;
 }
 
 .flex-1 {
@@ -885,10 +849,6 @@ option {
   flex-direction: column;
 }
 
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
 .items-center {
   align-items: center;
 }
@@ -915,11 +875,6 @@ option {
 
 .gap-1 {
   gap: 0.25rem;
-}
-
-.gap-x-1 {
-  -moz-column-gap: 0.25rem;
-       column-gap: 0.25rem;
 }
 
 .justify-self-end {
@@ -1044,24 +999,24 @@ option {
   padding-right: 1rem;
 }
 
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.px-5 {
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 }
 
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
 }
 
 .pt-3 {
@@ -1200,30 +1155,26 @@ details[open] {
 */
 
 .form-priorites > *:nth-child(1) {
-  grid-area: A;
+  grid-area: PA;
 }
 
 .form-priorites > *:nth-child(2) {
-  grid-area: B;
+  grid-area: PB;
 }
 
 .form-priorites > *:nth-child(3) {
-  grid-area: C;
-}
-
-.form-priorites > *:nth-child(4) {
-  grid-area: D;
+  grid-area: PC;
 }
 
 .form-priorites {
   grid-template-columns: repeat(7, 1fr);
-  grid-template-areas: "A A A A A A D" "B B B C C C D";
+  grid-template-areas: "PA PA PA PA PA PC PC" "PB PB PB PB PB PC PC";
 }
 
 @media (min-width: 720px) {
   .form-priorites {
-    grid-template-columns: repeat(14, 1fr);
-    grid-template-areas: "A A A A A B B B B C C C C D";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas: "PA PA PA PA PA PB PB PB PB PB PC PC";
   }
 }
 
@@ -1232,25 +1183,25 @@ details[open] {
 */
 
 .form-shop > *:nth-child(1) {
-  grid-area: A;
+  grid-area: SA;
 }
 
 .form-shop > *:nth-child(2) {
-  grid-area: B;
+  grid-area: SB;
 }
 
 .form-shop > *:nth-child(3) {
-  grid-area: C;
+  grid-area: SC;
 }
 
 .form-shop {
   grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: "A A A A A A A A A A C C" "B B B B B B B B B B C C";
+  grid-template-areas: "SA SA SA SA SA SA SA SA SA SC SC SC" "SB SB SB SB SB SB SB SB SB SC SC SC";
 }
 
 @media (min-width: 720px) {
   .form-shop {
-    grid-template-areas: "A A A A A A B B B B C C";
+    grid-template-areas: "SA SA SA SA SA SA SB SB SB SB SC SC";
   }
 }
 
@@ -1259,33 +1210,29 @@ details[open] {
 */
 
 .form-item > *:nth-child(1) {
-  grid-area: A;
+  grid-area: IA;
 }
 
 .form-item > *:nth-child(2) {
-  grid-area: B;
+  grid-area: IB;
 }
 
 .form-item > *:nth-child(3) {
-  grid-area: C;
+  grid-area: IC;
 }
 
 .form-item {
   grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: "A A A A A A A A A A C C" "B B B B B B B B B B C C";
+  grid-template-areas: "IA IA IA IA IA IA IA IA IA IC IC IC" "IB IB IB IB IB IB IB IB IB IC IC IC";
 }
 
 @media (min-width: 720px) {
   .form-item {
-    grid-template-areas: "A A A A A A B B B B C C";
+    grid-template-areas: "IA IA IA IA IA IA IB IB IB IB IC IC";
   }
 }
 
 @media (min-width: 768px) {
-  .md\:static {
-    position: static;
-  }
-
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -1312,10 +1259,6 @@ details[open] {
 
   .md\:flex-row {
     flex-direction: row;
-  }
-
-  .md\:flex-nowrap {
-    flex-wrap: nowrap;
   }
 
   .md\:items-center {

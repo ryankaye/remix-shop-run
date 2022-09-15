@@ -118,9 +118,7 @@ export default function Index() {
 */
 function EditItemForm({ item, sublist }) {
   const submit = useSubmit();
-
   const [status, setStatus] = useState(item.status);
-
   const handleChange = (event) => submit(event.currentTarget);
 
   const handlePriority = (event) => {
@@ -143,7 +141,7 @@ function EditItemForm({ item, sublist }) {
       <input type="text" name="text" defaultValue={item.text ? item.text : ""} placeholder="Item" className="bg-slate-700 text-white px-3 pt-3 pb-1 md:p-3 w-full border-0  " />
       <input type="text" name="url1" defaultValue={item.url1 ? item.url1 : ""} placeholder="Shop / brand" className="bg-slate-700 text-slate-400 md:text-slate-300 px-3 pb-3 md:p-3 w-full  border-0  " />
 
-      <div className="flex justify-self-end ">
+      <div className="flex justify-self-end px-2">
         <input type="text" name="price" defaultValue={item.price ? item.price : ""} placeholder="£" className="hidden md:block bg-slate-700 text-slate-400 w-6/12 border-0 p-3 text-right" />
 
         <button onClick={handlePriority} className={priorityClasses}>
@@ -187,11 +185,11 @@ function AddItemForm({ subListId, transition }) {
 
   return (
     <Form method="post" className="form-item grid gap-1 bg-slate-700 mb-4 items-center" ref={addItemForm}>
-      <input type="text" name="text" placeholder="Add new item" className="bg-slate-700 text-white px-3 pt-3 pb-1 md:p-3 w-full  md:w-1/2 border-0 " />
-      <input type="text" name="url1" defaultValue="" placeholder="Shop / brand" className="bg-slate-700 text-slate-400  px-3 pb-3 md:p-3 grow border-0" />
+      <input type="text" name="text" placeholder="Add new item" className="bg-slate-700 text-white px-3 pt-3 pb-1 md:p-3 w-full  border-0 " />
+      <input type="text" name="url1" placeholder="Shop / brand" className="bg-slate-700 text-slate-400  px-3 pb-3 md:p-3 w-full border-0" />
 
-      <div className="flex justify-self-end ">
-        <input type="text" name="price" defaultValue="" placeholder="£" className="hidden md:block bg-slate-700 text-slate-400 w-6/12 border-0 p-3 text-right" />
+      <div className="flex justify-self-end p-2">
+        <input type="text" name="price" placeholder="£" className="hidden md:block bg-slate-700 text-slate-400 w-6/12 border-0 p-3 text-right" />
 
         <button className=" flex items-center justify-center px-5" defaultValue="save" type="submit">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 bg-cyan-500 p-1">

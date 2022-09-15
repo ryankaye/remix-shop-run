@@ -112,14 +112,16 @@ function ItemForm({ item, sublists }) {
 
   const handleCompleted = (event) => (status === "Completed" ? setStatus("Default") : setStatus("Completed"));
 
-  const completedClasses = (status === "Completed" ? "text-cyan-400 " : "text-slate-400") + " justify-self-end px-3 ";
+  const completedClasses = (status === "Completed" ? "text-cyan-400 " : "text-slate-400") + " justify-self-end px-2 ";
 
   return (
-    <Form method="POST" key={item.id} className="form-priorites grid  mb-4 bg-slate-700 items-center relative" onChange={handleChange}>
-      <input type="text" name="text" defaultValue={item.text} className="w-full  bg-slate-700 p-3 border-0" />
-      <input type="text" name="url1" defaultValue={item.url1} className="w-full pt-0 md:pt-3  bg-slate-700 text-slate-400 p-3 border-0" />
+    <Form method="POST" key={item.id} className="form-priorites grid gap-1 mb-4 bg-slate-700 items-center relative" onChange={handleChange}>
+      <input type="text" name="text" defaultValue={item.text} className="w-full  bg-slate-700 p-3 pb-1 md:p-3  border-0" />
 
-      <div className="p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 ">{getSubListName(item?.sublistId)}</div>
+      <div className="p-3 pt-0 md:pt-3 text-base text-slate-400 border-0 ">
+        {item.url1 ? item.url1 + ", " : ""}
+        {getSubListName(item?.sublistId)}
+      </div>
 
       <button onClick={handleCompleted} className={completedClasses}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -127,6 +129,7 @@ function ItemForm({ item, sublists }) {
         </svg>
       </button>
 
+      <input type="hidden" name="url1" defaultValue={item.url1} className="w-full pt-0 md:pt-3  bg-slate-700 text-slate-400 p-3 border-0" />
       <input type="hidden" name="completed" defaultValue="" />
       <input type="hidden" name="transaction" defaultValue="updateItem" />
       <input type="hidden" name="order" defaultValue={item.order} />

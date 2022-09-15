@@ -87,27 +87,24 @@ details[open] {
   Form Priorites
 */
 .form-priorites > *:nth-child(1) {
-  grid-area: A;
+  grid-area: PA;
 }
 .form-priorites > *:nth-child(2) {
-  grid-area: B;
+  grid-area: PB;
 }
 .form-priorites > *:nth-child(3) {
-  grid-area: C;
-}
-.form-priorites > *:nth-child(4) {
-  grid-area: D;
+  grid-area: PC;
 }
 
 .form-priorites {
   grid-template-columns: repeat(7, 1fr);
-  grid-template-areas: "A A A A A A D" "B B B C C C D";
+  grid-template-areas: "PA PA PA PA PA PC PC" "PB PB PB PB PB PC PC";
 }
 
 @media (min-width: 720px) {
   .form-priorites {
-    grid-template-columns: repeat(14, 1fr);
-    grid-template-areas: "A A A A A B B B B C C C C D";
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas: "PA PA PA PA PA PB PB PB PB PB PC PC";
   }
 }
 
@@ -115,23 +112,23 @@ details[open] {
   Form Shop
 */
 .form-shop > *:nth-child(1) {
-  grid-area: A;
+  grid-area: SA;
 }
 .form-shop > *:nth-child(2) {
-  grid-area: B;
+  grid-area: SB;
 }
 .form-shop > *:nth-child(3) {
-  grid-area: C;
+  grid-area: SC;
 }
 
 .form-shop {
   grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: "A A A A A A A A A A C C" "B B B B B B B B B B C C";
+  grid-template-areas: "SA SA SA SA SA SA SA SA SA SC SC SC" "SB SB SB SB SB SB SB SB SB SC SC SC";
 }
 
 @media (min-width: 720px) {
   .form-shop {
-    grid-template-areas: "A A A A A A B B B B C C";
+    grid-template-areas: "SA SA SA SA SA SA SB SB SB SB SC SC";
   }
 }
 
@@ -139,22 +136,22 @@ details[open] {
   Form item
 */
 .form-item > *:nth-child(1) {
-  grid-area: A;
+  grid-area: IA;
 }
 .form-item > *:nth-child(2) {
-  grid-area: B;
+  grid-area: IB;
 }
 .form-item > *:nth-child(3) {
-  grid-area: C;
+  grid-area: IC;
 }
 
 .form-item {
   grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: "A A A A A A A A A A C C" "B B B B B B B B B B C C";
+  grid-template-areas: "IA IA IA IA IA IA IA IA IA IC IC IC" "IB IB IB IB IB IB IB IB IB IC IC IC";
 }
 
 @media (min-width: 720px) {
   .form-item {
-    grid-template-areas: "A A A A A A B B B B C C";
+    grid-template-areas: "IA IA IA IA IA IA IB IB IB IB IC IC";
   }
 }

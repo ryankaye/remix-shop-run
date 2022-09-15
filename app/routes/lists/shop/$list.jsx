@@ -151,7 +151,7 @@ function ItemForm({ item, sublists }) {
       <input type="text" name="text" defaultValue={item.text} className="bg-slate-700 p-3 w-full border-0" />
       <div className=" p-3 pt-0 md:pt-3 text-base text-slate-400 ">{getSubListName(item?.sublistId)}</div>
 
-      <div className="px-3 justify-self-end ">
+      <div className="px-2 justify-self-end ">
         <button onClick={handlePriority} className={priorityClasses}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
