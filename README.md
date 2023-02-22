@@ -1,6 +1,8 @@
+# SHOP RUN
+
 # Local Development
 
-cd Documents/Remix/remix-lists/remix-lists/
+cd Documents/Remix/remix-shop-run
 
 npm run dev
 
