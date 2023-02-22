@@ -1,4 +1,4 @@
-# Local Dev
+# Local Development
 
 cd Documents/Remix/remix-lists/remix-lists/
 
